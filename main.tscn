@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bu3g18ih57rx0" path="res://mob.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bny0cbrrfaaa3" path="res://hud.tscn" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://c55mhup3nxfcp" path="res://temp_bg.png" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://be20l71hmhe5h" path="res://sfx/oink.mp3" id="6_7mycd"]
 
 [sub_resource type="Curve2D" id="Curve2D_ig7tw"]
 _data = {
@@ -63,6 +64,9 @@ texture = ExtResource("5_lquwl")
 [node name="Wall" type="CollisionPolygon2D" parent="bg" unique_id=1534487182]
 polygon = PackedVector2Array(335, 51, 334, 15, 361, -115, 563, -118, 563, -134, 289, -150, 276, -12, 67, 30, 31, 197, 47, 531, 80, 693, 260, 698, 467, 698, 687, 694, 819, 695, 908, 650, 920, 552, 927, 400, 927, 244, 927, 101, 909, 33, 848, 19, 682, 10, 679, -137, 563, -134, 563, -118, 581, 16, 578, 62, 711, 59, 816, 58, 851, 58, 871, 76, 870, 182, 868, 335, 874, 465, 870, 615, 848, 654, 799, 664, 742, 667, 592, 665, 420, 665, 288, 665, 171, 661, 121, 661, 97, 644, 93, 492, 79, 410, 62, 337, 63, 274, 67, 193, 105, 67, 154, 55, 261, 59, 312, 62)
 one_way_collision_margin = 48.5
+
+[node name="PigNoises" type="AudioStreamPlayer2D" parent="." unique_id=1371568001]
+stream = ExtResource("6_7mycd")
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

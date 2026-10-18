@@ -46,6 +46,7 @@ func new_game():
 	clear_mobs()
 	
 	if spawn_init:		 
+		$MobTimer.wait_time = 1.0
 		score = 0
 		current_lvl = 1
 		spawn_points = 20
@@ -93,8 +94,9 @@ func _on_mob_timer_timeout():
 
 		# Spawn the mob by adding it to the Main scene.
 		add_child(mob)
+		$PigNoises.play()
 		current_spawn_points -= 1
-		print(current_spawn_points)
+
 	elif current_spawn_points <= 0 and get_tree().get_nodes_in_group("mobs").size() == 0:
 		stage_clear()
 		$MobTimer.stop()

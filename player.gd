@@ -70,6 +70,7 @@ func shoot() -> void:
 	new_bullet.global_position = ShootPos.global_position
 	new_bullet.global_rotation = ShootPos.global_rotation
 	get_parent().add_child(new_bullet)
+	$Shoot.play()
 	
 
 func get_lives():

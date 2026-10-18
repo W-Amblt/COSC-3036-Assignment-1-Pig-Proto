@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dsbxi4bahtswg" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Texture2D" uid="uid://dw07ju4efu1ug" path="res://bob.png" id="2_onrkg"]
+[ext_resource type="AudioStream" uid="uid://rwnrdnydg6mm" path="res://sfx/gun.mp3" id="3_i3pqv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0e48y"]
 animations = [{
@@ -55,6 +56,9 @@ collision_mask = 4
 position = Vector2(-3, 0)
 shape = SubResource("CapsuleShape2D_onrkg")
 metadata/_edit_group_ = true
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="." unique_id=1501189972]
+stream = ExtResource("3_i3pqv")
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_body_entered"]
