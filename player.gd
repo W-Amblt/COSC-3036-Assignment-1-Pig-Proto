@@ -4,6 +4,7 @@ signal hit
 var screen_size # Size of the game window.
 @export var is_alive: bool = true
 @export var can_shoot: bool = false
+var player_lives = 3
 
 const bullet_scene = preload("res://bullet.tscn")
 
@@ -19,11 +20,15 @@ func _ready() -> void:
 	hide()
 
 func start(pos):
+	if player_lives <= 0:
+		player_lives = 3
 	position = pos
 	show()
 	$"Wall Collision".disabled = false
 	is_alive = true
 	can_shoot = true
+	$Hitbox/CollisionShape2D.set_deferred("disabled", false)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -67,13 +72,19 @@ func shoot() -> void:
 	get_parent().add_child(new_bullet)
 	
 
+func get_lives():
+	return player_lives
+
 
 func _on_body_entered(body: Node2D) -> void:
 	is_alive = false
 	hide() # Player disappears after being hit.
+	player_lives -= 1
 	hit.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
+	
+
 
 
 func _on_shoot_timer_timeout() -> void:
