@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dy2wgtrgdh6d0"]
+
+[ext_resource type="Script" uid="uid://cw3664lxm5vrn" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://fxiega3fpmqn" path="res://player.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://bu3g18ih57rx0" path="res://mob.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bny0cbrrfaaa3" path="res://hud.tscn" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://c55mhup3nxfcp" path="res://temp_bg.png" id="5_lquwl"]
+
+[sub_resource type="Curve2D" id="Curve2D_ig7tw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 352.80984, 41.267715, 0, 0, 0, 0, 527.09204, 41.33858)
+}
+point_count = 2
+
+[node name="Main" type="Node" unique_id=1013789642]
+script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_h2yge")
+
+[node name="Player" parent="." unique_id=32475556 instance=ExtResource("1_ig7tw")]
+position = Vector2(418, 426)
+collision_layer = 2
+collision_mask = 3
+
+[node name="MobTimer" type="Timer" parent="." unique_id=1366502334]
+
+[node name="ScoreTimer" type="Timer" parent="." unique_id=265597707]
+
+[node name="StartTimer" type="Timer" parent="." unique_id=854968130]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="." unique_id=1918300827]
+position = Vector2(240, 450)
+
+[node name="MobPath" type="Path2D" parent="." unique_id=329335726]
+position = Vector2(-82.16418, -538.3334)
+scale = Vector2(1.2164178, 14.111113)
+curve = SubResource("Curve2D_ig7tw")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=2034238040]
+position = Vector2(352.80984, 41.267715)
+rotation = 0.00040661424
+
+[node name="HUD" parent="." unique_id=1426620282 instance=ExtResource("4_1bvp3")]
+
+[node name="bg" type="StaticBody2D" parent="." unique_id=1403223116]
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="bg" unique_id=614623259]
+z_index = -1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 2.0
+offset_right = 1918.0
+offset_bottom = 1442.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_lquwl")
+
+[node name="Wall" type="CollisionPolygon2D" parent="bg" unique_id=1534487182]
+polygon = PackedVector2Array(335, 51, 334, 15, 361, -115, 563, -118, 563, -134, 289, -150, 276, -12, 67, 30, 31, 197, 47, 531, 80, 693, 260, 698, 467, 698, 687, 694, 819, 695, 908, 650, 920, 552, 927, 400, 927, 244, 927, 101, 909, 33, 848, 19, 682, 10, 679, -137, 563, -134, 563, -118, 581, 16, 578, 62, 711, 59, 816, 58, 851, 58, 871, 76, 870, 182, 868, 335, 874, 465, 870, 615, 848, 654, 799, 664, 742, 667, 592, 665, 420, 665, 288, 665, 171, 661, 121, 661, 97, 644, 93, 492, 79, 410, 62, 337, 63, 274, 67, 193, 105, 67, 154, 55, 261, 59, 312, 62)
+one_way_collision_margin = 48.5
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
