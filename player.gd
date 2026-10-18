@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-
+	#Adapted from AI conversation
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite2D.play()
@@ -65,6 +65,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		$AnimatedSprite2D.flip_h = false
 
+#adapted from AI conversation
 func shoot() -> void:
 	var new_bullet = bullet_scene.instantiate()
 	new_bullet.global_position = ShootPos.global_position

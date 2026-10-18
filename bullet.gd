@@ -20,7 +20,7 @@ func _on_distance_timeout_timeout() -> void:
 	queue_free()
 
 
-
+	#based on AI conversation to help troubleshoot this bullet hit function
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if is_instance_valid(body) and body.name != "Wall":
 		EventBus.enemy_killed.emit(100)
